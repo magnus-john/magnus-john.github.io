@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "PrescribingStudy.UI",
   "resources": {
-    "hash": "sha256-7D0XbV5TktHZdP04d3QMstKzEkoZKZS/bFVLO7VG2Uw=",
+    "hash": "sha256-j/bpi9PvFWFNnWuWx0+8PhKpoXTD4v8UkOzZjvTaJy4=",
     "fingerprinting": {
       "BlazorBootstrap.1tepe0v8mi.wasm": "BlazorBootstrap.wasm",
       "BootstrapBlazor.vy3ocow515.wasm": "BootstrapBlazor.wasm",
@@ -41,7 +41,7 @@
       "Microsoft.JSInterop.WebAssembly.9tiedlnvko.wasm": "Microsoft.JSInterop.WebAssembly.wasm",
       "PrescribingStudy.Data.xut71ubb1n.wasm": "PrescribingStudy.Data.wasm",
       "PrescribingStudy.Model.xzwgk2y2ut.wasm": "PrescribingStudy.Model.wasm",
-      "PrescribingStudy.UI.qp2pcidr2s.wasm": "PrescribingStudy.UI.wasm",
+      "PrescribingStudy.UI.u04y0n9tjk.wasm": "PrescribingStudy.UI.wasm",
       "System.Collections.Concurrent.pub8wam2sf.wasm": "System.Collections.Concurrent.wasm",
       "System.Collections.Immutable.bdsoo8sig4.wasm": "System.Collections.Immutable.wasm",
       "System.Collections.NonGeneric.clvgcu3tl3.wasm": "System.Collections.NonGeneric.wasm",
@@ -90,7 +90,7 @@
       "System.Web.HttpUtility.bv23g0991x.wasm": "System.Web.HttpUtility.wasm",
       "YamlDotNet.3j21ruhhkz.wasm": "YamlDotNet.wasm",
       "dotnet.native.w035rhbztw.js": "dotnet.native.js",
-      "dotnet.native.3hlrz14k3l.wasm": "dotnet.native.wasm",
+      "dotnet.native.virdh1z8m3.wasm": "dotnet.native.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.runtime.drv0pr9n5o.js": "dotnet.runtime.js",
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
@@ -104,7 +104,7 @@
       "dotnet.runtime.drv0pr9n5o.js": "sha256-yfXUv1l/B489E8p12JxUvxly0JvHL9CCsoZUDlfGH9c="
     },
     "wasmNative": {
-      "dotnet.native.3hlrz14k3l.wasm": "sha256-iXNQZ//ADfWjZF7uObWLimJwkICFWZmMDrOOsqEWMX0="
+      "dotnet.native.virdh1z8m3.wasm": "sha256-l1GbA1ycBKkAITNNPl/6IRpbxQoHsAyZXG40U9I0yWk="
     },
     "icu": {
       "icudt_CJK.tjcz0u77k5.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -150,7 +150,7 @@
       "Microsoft.JSInterop.WebAssembly.9tiedlnvko.wasm": "sha256-vScvGCGFOzwoTsy7VKfMU9uuEskXbOdWabIc80iDa9g=",
       "PrescribingStudy.Data.xut71ubb1n.wasm": "sha256-FyRSzHycrc/0M1xSc6NdpmeKAg2Srrm+RNVe+pQFEM4=",
       "PrescribingStudy.Model.xzwgk2y2ut.wasm": "sha256-83jvltcWOBu6zQSMHH1xfwWLE6XrwRiTyhr1ykzElBk=",
-      "PrescribingStudy.UI.qp2pcidr2s.wasm": "sha256-/n0LFNqcdbBfnVOzwFmcQ2xZ3GOk025COYTABCNqTds=",
+      "PrescribingStudy.UI.u04y0n9tjk.wasm": "sha256-3tRECKPEG/0DrWx754zraCzPlzoWVHbSHXOQtJzyDGE=",
       "System.Collections.Concurrent.pub8wam2sf.wasm": "sha256-/6k7LdieM5ftJP8yqE42VMRnqvY1M8cYzLDVms7fw0g=",
       "System.Collections.Immutable.bdsoo8sig4.wasm": "sha256-nx1UTwwpfjovg4oQPVkpKTpfIVp1cJ07a6FFFGZDWrk=",
       "System.Collections.NonGeneric.clvgcu3tl3.wasm": "sha256-8DcaL4eiNpdXMvNRTbdE6yfg6nmFxLd7al5+zq0CCXs=",
