@@ -1,10 +1,22 @@
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    margin: 0;
+    padding: 0;
+    color: #111827;
+    background: #fafafa;
 }
 
 h1:focus {
     outline: none;
 }
+
+.card-modern > h3 {
+    margin-bottom: 0px;
+}
+
+.spacer {
+    margin-top: 30px;
+} 
 
 a, .btn-link {
     color: #0071c1;
@@ -21,19 +33,361 @@ a, .btn-link {
 }
 
 .content {
-    padding-top: 1.1rem;
+  padding-top: 1.1rem;
 }
 
-.valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+/* Centralized app styles for modern card/layout look (used across the app) */
+
+:root {
+  --app-accent-1: #6366f1;
+  --app-accent-2: #8b5cf6;
+  --app-dark-1: #0f172a;
+  --app-dark-2: #08112a;
+  --app-text-on-dark: #e6eef8;
+  --app-muted: #9fb7df;
+  --app-card-bg-start: rgba(255,255,255,0.04);
+  --app-card-bg-end: rgba(255,255,255,0.02);
+  --app-card-border: rgba(255,255,255,0.04);
+  --app-error-bg: rgba(255,80,80,0.06);
+  --app-error-color: #ffb4b4;
+
+  /* Page layout widths */
+  --page-card-max-width: 440px; /* base (form) card width */
+  --page-title-card-max-width: calc(var(--page-card-max-width) * 2); /* title card is twice as wide */
+
+  /* Control / form variables */
+  --control-bg: #fff;
+  --control-border: rgba(15,23,42,0.08);
+  --control-radius: 8px;
+  --control-padding: .65rem .75rem;
+  --control-color: #111827;
+  --control-focus-border: rgba(99,102,241,0.85);
+  --control-focus-shadow: 0 4px 18px rgba(99,102,241,0.08);
+
+  /* Select arrow icons (data-URI). These are overridden for dark pages below. */
+  --select-arrow-default: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path d='M0 0 L10 0 L5 6 Z' fill='%23666'/></svg>");
+  --select-arrow-dark: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path d='M0 0 L10 0 L5 6 Z' fill='%23fff'/></svg>");
+  --select-arrow: var(--select-arrow-default);
+
+  /* Grid variables */
+  --grid-border: rgba(15,23,42,0.06);
+  --grid-header-bg: #f8fafc;
+  --grid-row-odd-bg: #fff;
+  --grid-row-even-bg: #fbfbfd;
+  --grid-row-hover: rgba(99,102,241,0.06);
 }
 
-.invalid {
-    outline: 1px solid red;
+/* ------------------------
+   Dark, centered page layout (generic)
+   ------------------------
+   - Use .app-page on pages that should use the dark centered layout.
+   ------------------------ */
+
+.page > div {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.validation-message {
-    color: red;
+.app-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* title above form */
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  color: var(--app-text-on-dark);
+}
+
+/* Adjust control variables for dark pages (overrides) */
+.app-page {
+  --control-bg: rgba(255,255,255,0.02);
+  --control-border: rgba(255,255,255,0.06);
+  --control-color: var(--app-text-on-dark);
+  --select-arrow: var(--select-arrow-dark);
+
+  --grid-border: rgba(255,255,255,0.04);
+  --grid-header-bg: rgba(255,255,255,0.03);
+  --grid-row-odd-bg: rgba(255,255,255,0.01);
+  --grid-row-even-bg: transparent;
+  --grid-row-hover: rgba(255,255,255,0.03);
+}
+
+/* Page title card (twice the width of the content card). */
+.page-title-card {
+    width: 100%;
+    max-width: var(--page-title-card-max-width);
+    background: linear-gradient(180deg, var(--app-card-bg-start), var(--app-card-bg-end));
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    border: 1px solid var(--app-card-border);
+    align-self: center;
+    margin-bottom: 0; /* spacing handled by parent gap */
+}
+
+/* Content / form card (narrower). */
+.content-card {
+  width: 100%;
+  max-width: var(--page-card-max-width);
+  background: linear-gradient(180deg, var(--app-card-bg-start), var(--app-card-bg-end));
+  border-radius: 14px;
+  padding: 2rem;
+  margin-top: 10px;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid var(--app-card-border);
+  align-self: center;
+}
+
+.content-card h2 {
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+/* form-field colors inside the generic app page (keeps old selector for compatibility) */
+.app-page .form-field label {
+  color: #cfe3ff;
+}
+
+/* ------------------------
+   Controls: inputs, selects, textareas
+   ------------------------ */
+
+/* Base control (text inputs, textareas) */
+.input,
+.form-control.input,
+input.app-input,
+textarea.app-input {
+  width: 100%;
+  padding: var(--control-padding);
+  background: var(--control-bg);
+  border: 1px solid var(--control-border);
+  color: var(--control-color);
+  border-radius: var(--control-radius);
+  outline: none;
+  transition: box-shadow .12s, border-color .12s;
+  box-sizing: border-box;
+}
+
+/* Focus state for all controls */
+.input:focus,
+.form-control.input:focus,
+input.app-input:focus,
+textarea.app-input:focus {
+  border-color: var(--control-focus-border);
+  box-shadow: var(--control-focus-shadow);
+}
+
+/* Selects get a consistent appearance and custom arrow */
+select.input,
+select.app-input {
+  /* make room for the custom arrow */
+  padding-right: calc(.75rem + 1.25rem);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--control-bg);
+  border: 1px solid var(--control-border);
+  border-radius: var(--control-radius);
+  color: var(--control-color);
+  background-repeat: no-repeat;
+  background-position: right .75rem center;
+  background-size: 1rem;
+  background-image: var(--select-arrow);
+}
+
+/* Focus for selects */
+select.input:focus,
+select.app-input:focus {
+  border-color: var(--control-focus-border);
+  box-shadow: var(--control-focus-shadow);
+}
+
+/* For legacy styles that targeted .input specifically in dark pages */
+.app-page .input {
+  /* variables above already adjust; keep this selector for compatibility */
+}
+
+/* small helper to ensure visual parity for 3rd-party controls that use .form-control */
+.form-control {
+  border-radius: var(--control-radius);
+  padding: var(--control-padding);
+  border: 1px solid var(--control-border);
+}
+
+/* ------------------------
+   Shared modern components
+   ------------------------ */
+
+/* modern light card used across content pages (opt-in by adding .card-modern) */
+.card-modern {
+    width: 100%;
+    background: linear-gradient(180deg, #ffffff, #fbfbfd);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 8px 10px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    border: 1px solid rgba(16,24,40,0.04);
+    margin-top: 12px;
+}
+
+.card-modern > h4 {
+    margin-bottom: 0px;
+}
+
+/* form fields & inputs */
+.form-field { margin-bottom: 1rem; }
+.form-field label {
+  display: block;
+  margin-bottom: .35rem;
+  font-size: .875rem;
+  color: #374151;
+  font-weight: bold;
+}
+
+.input,
+.form-control.input,
+input.app-input,
+select.app-input,
+textarea.app-input {
+  /* kept for compatibility: defined above */
+}
+
+/* Buttons */
+.btn {
+  padding: .6rem .9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  font-weight: 600;
+  font-size: .95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--app-accent-1), var(--app-accent-2));
+  color: white;
+  box-shadow: 0 6px 18px rgba(99,102,241,0.18);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: #374151;
+  border: 1px solid rgba(15,23,42,0.06);
+}
+
+.btn:disabled { opacity: .6; cursor: wait; }
+
+/* small compatibility hooks for Fluent/3rd-party buttons */
+.flint-button,
+.fluent-button,
+button.fluent-button,
+button.btn {
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+/* errors & spinner */
+.error {
+  margin-top: .5rem;
+  color: var(--app-error-color);
+  background: var(--app-error-bg);
+  padding: .5rem;
+  border-radius: 8px;
+  font-size: .9rem;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(0,0,0,0.18);
+  border-top-color: rgba(0,0,0,0.9);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  vertical-align: middle;
+  margin-right: .5rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* accessibility helper */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* small layout helpers used in markup */
+.align-right { text-align: right; }
+.col-form-label { font-weight: bold; }
+.form-label { padding-top: calc(.375rem + var(--bs-border-width)); padding-bottom: calc(.375rem + var(--bs-border-width)); margin-bottom: 0; font-size: inherit; line-height: 1.5; }
+
+/* ------------------------
+   App Grid / Table styles (consistent look for grids & tables)
+   ------------------------ */
+
+table.app-grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .95rem;
+  margin-top: .5rem;
+  background: transparent;
+  color: inherit;
+}
+
+table.app-grid thead th {
+  background: var(--grid-header-bg);
+  font-weight: 700;
+  padding: .75rem;
+  border-bottom: 1px solid var(--grid-border);
+  text-align: left;
+  color: inherit;
+}
+
+table.app-grid tbody td {
+  padding: .75rem;
+  border-bottom: 1px solid var(--grid-border);
+  vertical-align: middle;
+}
+
+table.app-grid tbody tr:nth-child(odd) {
+  background: var(--grid-row-odd-bg);
+}
+
+table.app-grid tbody tr:nth-child(even) {
+  background: var(--grid-row-even-bg);
+}
+
+table.app-grid tbody tr:hover {
+  background: var(--grid-row-hover);
+}
+
+/* Backwards-compatible fluent-data-grid tweaks mapped to app grid variables */
+.fluent-data-grid .fluent-data-grid-row:nth-child(odd) > td { background-color: var(--grid-row-odd-bg); }
+.fluent-data-grid .fluent-data-grid-row:nth-child(even) > td { background-color: var(--grid-row-even-bg); }
+.fluent-data-grid .fluent-data-grid-row:hover > td { background-color: var(--grid-row-hover); }
+
+/* keep older page specific tweaks (table rows, grids etc) */
+h3 {
+    /* background-color: #eeeeee; */
+    padding: 10px 0px 10px 0px;
+}
+
+fluent-card {
+    /* background-color: ghostwhite; */
+}
+
+article {
+    padding-right: 0px;
 }
 
 #blazor-error-ui {
@@ -48,22 +402,22 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
 
 .blazor-error-boundary {
-    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA5NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTYiIGhlaWdodD0iNDkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIG92ZXJmbG93PSJoaWRkZW4iPjxkZWZzPjxjbGlwUGF0aCBpZD0iY2xpcDAiPjxyZWN0IHg9IjIzNSIgeT0iNTEiIHdpZHRoPSI1NiIgaGVpZ2h0PSI0OSIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMCkiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMzUgLTUxKSI+PHBhdGggZD0iTTI2My41MDYgNTFDMjY0LjcxNyA1MSAyNjUuODEzIDUxLjQ4MzcgMjY2LjYwNiA1Mi4yNjU4TDI2Ny4wNTIgNTIuNzk4NyAyNjcuNTM5IDUzLjYyODMgMjkwLjE4NSA5Mi4xODMxIDI5MC41NDUgOTIuNzk1IDI5MC42NTYgOTIuOTk2QzI5MC44NzcgOTMuNTEzIDI5MSA5NC4wODE1IDI5MSA9NC42NzgyIDI5MSA5Ny4wNjUxIDI4OS4wMzggOTkgMjg2LjYxNyA5OUwyNDAuMzgzIDk5QzIzNy45NjMgOTkgMjM2IDk3LjA2NTEgMjM2IDk0LjY3ODIgMjM2IDk0LjM3OTkgMjM2LjAzMSA5NC4wODg2IDIzNi4wODkgOTMuODA3MkwyMzYuMzM4IDkzLjAxNjIgMjM2Ljg1OCA5Mi4xMzE0IDI1OS40NzMgNTMuNjI5NCAyNTkuOTYxIDUyLjc5ODUgMjYwLjQwNyA1Mi4yNjU4QzI2MS4yIDUxLjQ4MzcgMjYyLjI5NiA1MSAyNjMuNTA2IDUxWk0yNjMuNTg2IDY2LjAxODNDMjYwLjczNyA2Ni4wMTgzIDI1OS4zMTMgNjcuMTI0NSAyNTkuMzEzIDY5LjMzNyAyNTkuMzEzIDY5LjYxMDIgMjU5LjMzMiA2OS44NjA4IDI1OS4zNzEgNzAuMDg4N0wyNjEuNzk1IDg0LjAxNjEgMjY1LjM4IDg0LjAxNjEgMjY3LjgyMSA2OS43NDc1QzI2Ny44NiA2OS43MzA5IDI2Ny44NzkgNjkuNTg3NyAyNjcuODc5IDY5LjMxNzkgMjY3Ljg3OSA2Ny4xMTgyIDI2Ni40NDggNjYuMDE4MyAyNjMuNTg2IDY2LjAxODNaTTI2My41NzYgODYuMDU0N0MyNjEuMDQ5IDg2LjA1NDcgMjU5Ljc4NiA4Ny4zMDA1IDI1OS43ODYgODkuNzkyMSAyNTkuNzg2IDkyLjI4MzcgMjYxLjA0OSA5My41Mjk1IDI2My41NzYgOTMuNTI5NSAyNjYuMTE2IDkzLjUyOTUgMjY3LjM4NyA5Mi4yODM3IDI2Ny4zODcgODkuNzkyMSAyNjcuMzg3IDg3LjMwMDUgMjY2LjExNiA4Ni4wNTQ3IDI2My41NzYgODYuMDU0N1oiIGZpbGw9IiNGRkU1MDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48L3N2Zz4=) no-repeat 1rem/1.8rem, #b32121;
     padding: 1rem 1rem 1rem 3.7rem;
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
 
 .loading-progress {
     position: relative;
@@ -73,19 +427,19 @@ a, .btn-link {
     margin: 20vh auto 1rem auto;
 }
 
-    .loading-progress circle {
-        fill: none;
-        stroke: #e0e0e0;
-        stroke-width: 0.6rem;
-        transform-origin: 50% 50%;
-        transform: rotate(-90deg);
-    }
+.loading-progress circle {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 0.6rem;
+    transform-origin: 50% 50%;
+    transform: rotate(-90deg);
+}
 
-        .loading-progress circle:last-child {
-            stroke: #1b6ec2;
-            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
+.loading-progress circle:last-child {
+    stroke: #1b6ec2;
+    stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
+    transition: stroke-dasharray 0.05s ease-in-out;
+}
 
 .loading-progress-text {
     position: absolute;
@@ -94,9 +448,9 @@ a, .btn-link {
     inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
 }
 
-    .loading-progress-text:after {
-        content: var(--blazor-load-percentage-text, "Loading");
-    }
+.loading-progress-text:after {
+    content: var(--blazor-load-percentage-text, "Loading");
+}
 
 code {
     color: #c02d76;
@@ -107,47 +461,6 @@ fluent-card {
     margin-bottom: 10px;
 }
 
-.align-right {
-    text-align: right;
-}
-
-.select-button {
-    text-align: center;
-}
-
-.fluent-data-grid-row:has([row-selected]) > td {
-    background-color: var(--neutral-fill-stealth-hover)
-}
-
-.col-form-label {
-    font-weight: bold;
-}
-
-.form-label {
-    padding-top: calc(.375rem + var(--bs-border-width));
-    padding-bottom: calc(.375rem + var(--bs-border-width));
-    margin-bottom: 0;
-    font-size: inherit;
-    line-height: 1.5;
-}
-
-.fluent-data-grid .fluent-data-grid-row:nth-child(odd) > td {
-    background-color: ghostwhite;
-}
-
-.fluent-data-grid .fluent-data-grid-row:nth-child(even) > td {
-    background-color: white;
-}
-
-h3 {
-    background-color: #eeeeee;
-    padding: 10px;
-}
-
-fluent-card {
-    background-color: ghostwhite;
-}
-
-article {
-    padding-right: 0px;
-}
+/*.row-selected {
+    background-color: var(--neutral-fill-stealth-hover);
+}*/
