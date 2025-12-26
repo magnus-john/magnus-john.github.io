@@ -116,19 +116,17 @@ a, .btn-link {
     justify-content: start;
 }
 
-.app-page {
-    background: linear-gradient(180deg, var(--app-dark-1), var(--app-dark-2));
-    gap: 1.25rem;
-    color: var(--app-text-on-dark);
-}
-
 /* 
     Adjust control variables for dark pages (overrides)
   --control-bg: rgba(255,255,255,0.05);
 
 */
 .app-page {
-    --control-bg: #343434;
+    background: linear-gradient(180deg, var(--app-dark-1), var(--app-dark-2));
+    gap: 1.25rem;
+    color: var(--app-text-on-dark);
+    min-height: 100%;
+    --control-bg: #424446;
     --control-border: rgba(255,255,255,0.06);
     --control-color: var(--app-text-on-dark);
     --select-arrow: var(--select-arrow-dark);
@@ -153,18 +151,31 @@ a, .btn-link {
     align-self: center;
     margin-bottom: 0; /* spacing handled by parent gap */
     margin-top: 12px;
+    --app-card-bg-start: #343434;
+    --app-card-bg-end: #343434;
 }
 
 /* Content / form card (narrower). */
 .content-card {
-  width: 100%;
-  max-width: var(--page-card-max-width);
-  background: linear-gradient(180deg, var(--app-card-bg-start), var(--app-card-bg-end));
-  border-radius: 14px;
-  padding: 2rem;
-  margin-top: 10px;
-  box-shadow: 0 8px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-  border: 1px solid var(--app-card-border);
+    width: 100%;
+    max-width: var(--page-card-max-width);
+    background: linear-gradient(180deg, var(--app-card-bg-start), var(--app-card-bg-end));
+    border-radius: 14px;
+    padding: 2rem;
+    margin-top: 10px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    border: 1px solid var(--app-card-border);
+}
+
+.wide-content-card {
+    width: 100%;
+    max-width: var(--page-title-card-max-width);
+    background: linear-gradient(180deg, var(--app-card-bg-start), var(--app-card-bg-end));
+    border-radius: 14px;
+    padding: 2rem;
+    margin-top: 10px;
+    box-shadow: 0 8px 20px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    border: 1px solid var(--app-card-border);
 }
 
 .content-card h2 {
@@ -531,11 +542,11 @@ fluent-card {
 }
 
 select > option {
-    background-color: #424446;
+    background-color: var(--control-bg);
 }
 
 .info-panel {
-    background-color: #424446;
+    background-color: var(--control-bg);
     padding: 1.25rem;
 }
 
@@ -545,4 +556,8 @@ select > option {
 
 .alternate svg {
     fill: ghostwhite;
+}
+
+.progress-panel-item:nth-child(n+2) {
+    margin-top: 12px;
 }
